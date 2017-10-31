@@ -64,17 +64,27 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
                         
                         <div class="logowanie">
                         
-                            <form action="logowanie.php" method="post">
+                            <form action="zaloguj.php" method="post">
                                 
                                 Login:<br />
                                 <input type="text" name="login"/><br />
                                 Hasło:<br />
-                                <input type="password" name="haslo1"/><br />
-                                
+                                <input type="password" name="haslo"/><br />
+                                <input class="registButton" style="margin-top: 10px;" type="submit" value="Zaloguj się"/>
                             </form> 
                             
                             <br />
-                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a>
+                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a><br />
+                            
+                            
+                            <?php
+    
+                                if(isset($_SESSION['blad']))
+                                {
+                                    echo $_SESSION['blad'];
+                                    unset($_SESSION['blad']);
+                                }
+                            ?>
                         
                         </div>
                         
@@ -116,6 +126,8 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
         </div>
         
     </footer>
+    
+    
     
 </body>
     

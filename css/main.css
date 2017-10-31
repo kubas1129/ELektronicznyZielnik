@@ -197,3 +197,11 @@ h5
     border: 1px solid #b2c4b2;
     padding: 2px;
 }
+
+.logbutton:hover
+{
+    text-decoration: none;
+    color: #a1b3a1;
+    border: 1px solid #a1b3a1;
+    padding: 2px;
+}

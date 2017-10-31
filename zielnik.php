@@ -66,7 +66,14 @@ elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==false))
                             <h1>Zielnik</h1><br /> 
                         </header>
                         
+                        To jest zielnik ... strona w budowie
+                        <br />
+                        <br />
                         
+                        <a class="logbutton" href="logout.php">Wyloguj się</a>
+                        
+                        <br />
+                        <br />
                         
                     </div>
                     
