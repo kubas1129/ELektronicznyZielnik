@@ -18,11 +18,34 @@ body
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 60px;
 }
 
-#nav
+.nav
 {
+    width: 800px;
+    float: left;
     background-color: #464c46;
+}
+
+.userinfo
+{
+    width: 168px;
+    height: 51px;
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    border: 1px solid #b2c4b2;
+}
+
+.userinfo > p
+{
+    color: #e2e2e2;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .menu
@@ -72,6 +95,7 @@ body
 .leftside
 {
     width: 720px;
+    min-height: 424px;
     margin-right: 5px;
     float: left;
     background-color: #464c46;
@@ -195,5 +219,13 @@ h5
     text-decoration: none;
     color: #b2c4b2;
     border: 1px solid #b2c4b2;
+    padding: 2px;
+}
+
+.logbutton:hover
+{
+    text-decoration: none;
+    color: #a1b3a1;
+    border: 1px solid #a1b3a1;
     padding: 2px;
 }

@@ -60,17 +60,18 @@ if(isset($_POST['email']))
     $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
     
     
-    //Walidacja regulaminu
     if(!isset($_POST['regulamin']))
     {
-        $validateOK=false;
-        $_SESSION['error_regulamin']="Musisz zaakceptować regulamin!";
+        $wszystko_OK=false;
+        $_SESSION['error_regulamin']="Potwierdź akceptację regulaminu!";
     }
+    
+    
     
     //Walidacja captcha
     $secretCaptcha = "6LdTmjYUAAAAAA7li3L2gd_JZDEJnrcaJ_-QEAnx";
     
-    $captchaCheck = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+    $captchaCheck = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretCaptcha.'&response='.$_POST['g-recaptcha-response']);
     
     $captchaResponse = json_decode($captchaCheck);
     
@@ -159,7 +160,7 @@ if(isset($_POST['email']))
     <meta name="keywords" content="zielnik, zdrowie, fit, przyrządzanie"/>
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="css\main.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
@@ -172,17 +173,34 @@ if(isset($_POST['email']))
     
     <header id="top">
     
-        <img src="img/ziola.jpg"/>
+        <img src="img/ziola.jpg"/> 
         
-        <nav id="nav">
+        <nav class="nav">
             <ul class="menu">
                 <li><a href="index.php">Strona główna</a></li>
                 <li><a href="zielniklogowanie.php">Zielnik</a></li>
                 <li><a href="omnie.php">O mnie</a></li>
                 <li><a href="kontakt.php">Kontakt</a></li>                
-            </ul>
+            </ul>        
         </nav>
-                        
+
+        <div class="userinfo">
+            
+            <?php
+            
+                if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+                {
+                    echo '<p>User : '.$_SESSION['sql_login'];
+                }
+                else
+                {
+                    echo "<p>User: Guest</p>";
+                }
+            
+            ?>        
+        
+        </div>
+            
     </header>
     
     <div class="container">
@@ -244,7 +262,7 @@ if(isset($_POST['email']))
                                 
                                 Powtórz hasło:<br />
                                 <input type="password" name="haslo2"/><br />
-                                <label><input type="checkbox" name="regulamin " />Akceptuję regulamin</label><br />
+                                <label><input type="checkbox" name="regulamin" />Akceptuję regulamin</label><br /> 
                                 
                                 <?php
                                 

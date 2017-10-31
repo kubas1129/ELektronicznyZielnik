@@ -68,18 +68,9 @@ session_start();
                     <div class="leftside">
                         
                         <header>
-                        <h1>Witaj w elektronicznym zielniku!</h1>
-                            <p>Zawitałeś tutaj przez przypadek? <br /> A może szukasz zapomnianych receptur zielarskich? Dobrze trafiłeś! <br /></p>
+                        <h1>Kontakt</h1>
+                            <p>Masz jakieś pytania? Widzisz błąd? A może znalazłeś lukę w zabezpieczeniach? <br /> Napisz do mnie na email: kubas11513@gmail.com</p>
                         </header>
-                        
-                        <div class="opis">
-                            
-                            <img src="img/lecznicze1.jpg"/>
-                           
-                        <br />
-                        <p>Staram się dodawać sprawdzone i najlepsze receptury wprost od himalajskich mnichów u których szkoliłem swoje umięjętności przez dwa lata. Te wyspecjalizowane przepisy zawierają wiele rzadkich i niekiedy niedostępnych gatunków ziół, ale nie zrażaj się! Każdą z tych roślin udało mi się wychodować w ogródku. To naprawdę niesamowite, jak wiele możemy w tej materii zrobić sami. A więc do dzieła, zarejestruj się i przejdź do zakładki "Zielnik" aby rozpocząć swoją przygodę z niesamowitymi eliksirami prosto z twojego ogródka.</p>
-                        
-                        </div>
                         
                     </div>
                     

@@ -25,7 +25,7 @@ else
     <meta name="keywords" content="zielnik, zdrowie, fit, przyrządzanie"/>
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="css\main.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
@@ -36,17 +36,34 @@ else
     
     <header id="top">
     
-        <img src="img/ziola.jpg"/>
+        <img src="img/ziola.jpg"/> 
         
-        <nav id="nav">
+        <nav class="nav">
             <ul class="menu">
                 <li><a href="index.php">Strona główna</a></li>
                 <li><a href="zielniklogowanie.php">Zielnik</a></li>
                 <li><a href="omnie.php">O mnie</a></li>
                 <li><a href="kontakt.php">Kontakt</a></li>                
-            </ul>
+            </ul>        
         </nav>
-                        
+
+        <div class="userinfo">
+            
+            <?php
+            
+                if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+                {
+                    echo '<p>User : '.$_SESSION['sql_login'];
+                }
+                else
+                {
+                    echo "<p>User: Guest</p>";
+                }
+            
+            ?>        
+        
+        </div>
+            
     </header>
     
     <div class="container">
@@ -61,8 +78,8 @@ else
                         
                         Dziękujemy za rejestrację w serwisie! 
                         Możesz już zalogować się na swoje konto.
-    
-                        <a href="zielniklogowanie.php">Zaloguj się na konto!</a>
+                        <br />
+                        <a class="regbutton" href="zielniklogowanie.php">Zaloguj się na konto!</a>
                         
                     </div>
                     

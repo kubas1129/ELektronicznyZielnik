@@ -35,17 +35,34 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
     
     <header id="top">
     
-        <img src="img/ziola.jpg"/>
+        <img src="img/ziola.jpg"/> 
         
-        <nav id="nav">
+        <nav class="nav">
             <ul class="menu">
                 <li><a href="index.php">Strona główna</a></li>
                 <li><a href="zielniklogowanie.php">Zielnik</a></li>
                 <li><a href="omnie.php">O mnie</a></li>
                 <li><a href="kontakt.php">Kontakt</a></li>                
-            </ul>
+            </ul>        
         </nav>
-                        
+
+        <div class="userinfo">
+            
+            <?php
+            
+                if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+                {
+                    echo '<p>User : '.$_SESSION['sql_login'];
+                }
+                else
+                {
+                    echo "<p>User: Guest</p>";
+                }
+            
+            ?>        
+        
+        </div>
+            
     </header>
     
     <div class="container">
@@ -64,17 +81,27 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
                         
                         <div class="logowanie">
                         
-                            <form action="logowanie.php" method="post">
+                            <form action="zaloguj.php" method="post">
                                 
                                 Login:<br />
                                 <input type="text" name="login"/><br />
                                 Hasło:<br />
-                                <input type="password" name="haslo1"/><br />
-                                
+                                <input type="password" name="haslo"/><br />
+                                <input class="registButton" style="margin-top: 10px;" type="submit" value="Zaloguj się"/>
                             </form> 
                             
                             <br />
-                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a>
+                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a><br />
+                            
+                            
+                            <?php
+    
+                                if(isset($_SESSION['blad']))
+                                {
+                                    echo $_SESSION['blad'];
+                                    unset($_SESSION['blad']);
+                                }
+                            ?>
                         
                         </div>
                         
@@ -116,6 +143,8 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
         </div>
         
     </footer>
+    
+    
     
 </body>
     
