@@ -194,12 +194,14 @@ if(isset($_POST['email']))
                 }
                 else
                 {
-                    echo "<p>User: Guest</p>";
+                    echo "<p>User: Guest;</p>";
                 }
             
             ?>        
         
         </div>
+        
+        <div style="clear: both"></div>
             
     </header>
     

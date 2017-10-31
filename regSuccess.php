@@ -63,6 +63,8 @@ else
             ?>        
         
         </div>
+        
+        <div style="clear: both"></div>
             
     </header>
     

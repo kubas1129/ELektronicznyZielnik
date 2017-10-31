@@ -62,6 +62,8 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
             ?>        
         
         </div>
+        
+        <div style="clear: both;"></div>
             
     </header>
     

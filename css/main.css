@@ -18,7 +18,6 @@ body
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 60px;
 }
 
 .nav
@@ -189,6 +188,11 @@ h5
     padding: 5px;
 }
 
+.userbuttons
+{
+    display: block;
+}
+
 .ad
 {
     height: 300px;
@@ -229,3 +233,5 @@ h5
     border: 1px solid #a1b3a1;
     padding: 2px;
 }
+
+

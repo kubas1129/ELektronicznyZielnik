@@ -24,7 +24,7 @@ session_start();
 </head>
 
 <body>
-    
+        
     <header id="top">
     
         <img src="img/ziola.jpg"/> 
@@ -54,6 +54,8 @@ session_start();
             ?>        
         
         </div>
+        
+        <div style="clear: both;"></div>
             
     </header>
         
@@ -118,6 +120,10 @@ session_start();
             Wszelkie prawa zastrzeżone &copy; Dziękuję za wizytę.
         </div>
         
+        <div class="userbuttons">
+        
+        </div>
+                
     </footer>
     
 </body>
