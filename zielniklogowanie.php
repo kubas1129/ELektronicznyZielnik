@@ -35,17 +35,34 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
     
     <header id="top">
     
-        <img src="img/ziola.jpg"/>
+        <img src="img/ziola.jpg"/> 
         
-        <nav id="nav">
+        <nav class="nav">
             <ul class="menu">
                 <li><a href="index.php">Strona główna</a></li>
                 <li><a href="zielniklogowanie.php">Zielnik</a></li>
                 <li><a href="omnie.php">O mnie</a></li>
                 <li><a href="kontakt.php">Kontakt</a></li>                
-            </ul>
+            </ul>        
         </nav>
-                        
+
+        <div class="userinfo">
+            
+            <?php
+            
+                if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+                {
+                    echo '<p>User : '.$_SESSION['sql_login'];
+                }
+                else
+                {
+                    echo "<p>User: Guest</p>";
+                }
+            
+            ?>        
+        
+        </div>
+            
     </header>
     
     <div class="container">
