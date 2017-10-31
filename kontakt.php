@@ -54,6 +54,8 @@ session_start();
             ?>        
         
         </div>
+        
+        <div style="clear: both;"></div>
             
     </header>
         
