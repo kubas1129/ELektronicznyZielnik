@@ -10,8 +10,9 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 }
 
 //sprawdzamy czy cokolwiek sie przesłało
-if(isset($_SESSION['email']))
+if(isset($_POST['email']))
 {
+     
     $validateOK = true;
     
     //walidacja loginu
@@ -23,6 +24,7 @@ if(isset($_SESSION['email']))
         $_SESSION['error_login'] ="Login musi posiadać od 3-20 znaków!";
     }
     
+    
     if(ctype_alnum($login)==false)
     {
         $validateOK=false;
@@ -31,14 +33,15 @@ if(isset($_SESSION['email']))
     
     $email=$_POST['email'];
     
-    $emailB= filter_var($email,FILTER_SANITIZE_EMAIL);
+    $emailB= filter_var($email, FILTER_SANITIZE_EMAIL);
     
     if(filter_var($emailB, FILTER_VALIDATE_EMAIL)==false || $emailB!=$email)
     {
         $validateOK=false;
-        $_SESSION['error_email']="Niepoprawny adres email! Pod poprawny...";
+        $_SESSION['error_email']="Niepoprawny adres email!";
     }
     
+    //Walidacja hasła
     $haslo1 = $_POST['haslo1'];
     $haslo2 = $_POST['haslo2'];
     
@@ -56,12 +59,15 @@ if(isset($_SESSION['email']))
     
     $haslo_hash = password_hash($haslo1, PASSWORD_DEFAULT);
     
-    if(isset($_POST['regulamin']))
+    
+    //Walidacja regulaminu
+    if(!isset($_POST['regulamin']))
     {
         $validateOK=false;
         $_SESSION['error_regulamin']="Musisz zaakceptować regulamin!";
     }
     
+    //Walidacja captcha
     $secretCaptcha = "6LdTmjYUAAAAAA7li3L2gd_JZDEJnrcaJ_-QEAnx";
     
     $captchaCheck = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
@@ -74,6 +80,7 @@ if(isset($_SESSION['email']))
         $_SESSION['error_captcha']="Potwierdź że nie jesteś botem";
     }
     
+    //Połączenie
     require_once "mysqlconnect.php";
     
     mysqli_report(MYSQLI_REPORT_STRICT);
@@ -101,7 +108,9 @@ if(isset($_SESSION['email']))
                 $_SESSION['error_email']="Podany email istnieje już w bazie!";
             }
             
-            $result = $polaczenie->query("SELECT id FROM uzytkownicy WHERE user='$login'");
+            
+            //sprawdź czy login już istnieje 
+            $result = $polaczenie->query("SELECT id FROM uzytkownicy WHERE login='$login'");
             
             if(!$result) throw new Exception($polaczenie->error);
             
@@ -113,9 +122,11 @@ if(isset($_SESSION['email']))
                 $_SESSION['error_login'] = "Istnieje już konto o podanym loginie!";
             }
             
+            
+            //Jeśli wszystko poszło OK
             if($validateOK==true)
             {
-                if($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL,'$login','$haslo_hash','$email')"))
+                if($polaczenie->query("INSERT INTO uzytkownicy VALUES (NULL,'$login','$haslo_hash','$email',0)"))
                 {
                     $_SESSION['registrationSuccess']=true;
                     header('Location: regSuccess.php');
@@ -132,9 +143,7 @@ if(isset($_SESSION['email']))
     catch(Exception $e)
     {
         echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności.</span>';
-    }
-    
-    
+    }    
 }
 
 ?>
@@ -192,7 +201,7 @@ if(isset($_SESSION['email']))
                         
                         <div class="logowanie">
                         
-                            <form method="post">
+                            <form method="post" >
                                 
                                 Login:<br />
                                 <input type="text" name="login"/><br />

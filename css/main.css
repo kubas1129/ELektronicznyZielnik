@@ -189,3 +189,11 @@ h5
 {
     color: red;
 }
+
+.logbutton
+{
+    text-decoration: none;
+    color: #b2c4b2;
+    border: 1px solid #b2c4b2;
+    padding: 2px;
+}

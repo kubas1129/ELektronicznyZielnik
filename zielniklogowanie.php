@@ -2,13 +2,7 @@
 
 session_start();
 
-
-if(!isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany'])==false)
-{
-    header('Location: zielnikrejestracja.php');
-    exit();
-}
-elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
+if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
 {
     header('Location: zielnik.php');
     exit();
@@ -77,7 +71,10 @@ elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
                                 Hasło:<br />
                                 <input type="password" name="haslo1"/><br />
                                 
-                            </form>                     
+                            </form> 
+                            
+                            <br />
+                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a>
                         
                         </div>
                         
