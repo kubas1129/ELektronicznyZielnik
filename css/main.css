@@ -150,7 +150,7 @@ h5
     margin-left: 110px;
     margin-right: 110px;
     border: 2px solid #e2e2e2;
-    border-radius: 2 px;
+    border-radius: 2px;
 }
 
 .info
@@ -158,7 +158,7 @@ h5
     width: 990px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #464c46;
+    background-color: #2F3336;
     margin-top: 5px;
     text-align: center;
     font-size: 18px;
@@ -170,4 +170,22 @@ h5
     height: 300px;
     background-color: #232a23;
     margin-top: 20px;
+}
+
+.logowanie
+{
+    padding-left: 50px;
+    padding-bottom: 50px;
+}
+
+.registButton
+{
+    color: #b2c4b2;
+    background-color: #464c46; 
+    border-radius: 5px;
+}
+
+.error
+{
+    color: red;
 }
