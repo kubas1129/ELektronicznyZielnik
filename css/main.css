@@ -1,0 +1,173 @@
+/*
+font-family: 'Lobster', cursive;
+font-family: 'Ubuntu', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Open Sans', sans-serif;
+*/
+
+body
+{
+    background-color: #2F3336;
+    color: #efefef;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+}
+
+#top
+{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#nav
+{
+    background-color: #464c46;
+}
+
+.menu
+{
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+}
+
+.menu > li  
+{
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: 1px dashed #e2e2e2;
+}
+
+.menu >li:first-child
+{
+    border-left: 1px dashed #e2e2e2;
+}
+
+.menu > li > a
+{
+    text-decoration: none;
+    font-size: 26px;
+    color: #b2c4b2;
+    font-family: 'Lobster', cursive;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.menu > li > a:hover
+{
+    color: #a1b3a1;
+}
+
+.container 
+{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    color: #deeade;
+}
+
+.leftside
+{
+    width: 720px;
+    margin-right: 5px;
+    float: left;
+    background-color: #464c46;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.rightside
+{
+    width: 170px;
+    margin-left: 5px;
+    float: left;
+    background-color: #464c46;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+header > h1
+{
+    color: #b2c4b2;
+    font-size: 30px;
+    text-align: center;
+}
+
+p
+{
+    color: #e2e2e2;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+}
+
+header > p
+{
+    padding-left: 110px;
+    padding-right: 110px;
+    text-align: center;
+}
+
+.entry
+{
+    text-align: justify;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.entrylist
+{
+    font-size: 14px;
+    list-style-type: circle;
+}
+
+.entrylist > li > a
+{
+    text-decoration: none;
+    color: #e2e2e2;
+}
+
+.entrylist > li > a:hover
+{
+    text-decoration: none;
+    color: #d1d1d1;
+}
+
+h5
+{
+    color: #b2c4b2;
+    font-size: 16px;
+}
+
+.opis > img
+{
+    width: 500px;
+    margin-left: 110px;
+    margin-right: 110px;
+    border: 2px solid #e2e2e2;
+    border-radius: 2 px;
+}
+
+.info
+{
+    width: 990px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #464c46;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.ad
+{
+    height: 300px;
+    background-color: #232a23;
+    margin-top: 20px;
+}
