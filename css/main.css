@@ -234,4 +234,79 @@ h5
     padding: 2px;
 }
 
+.fixedbuttonAdd
+{
+   	width: 64px;
+	height: 64px;
+	text-decoration: none;
+	position: fixed;
+	right: 130px;
+	bottom: 50px;
+	display: block;
+}
+
+.fixedbuttonAdd > a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.fixedbuttonLogout
+{
+   	width: 64px;
+	height: 64px;
+	text-decoration: none;
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+	display: block;
+    color: red;
+}
+
+.fixedbuttonLogout > a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.recipy
+{
+    width: 700px;
+    height: 300px;
+    border: 1px solid #a1b3a1;
+    background-color: #2F3336;
+    margin-bottom: 20px;    
+}
+
+.recipyImage
+{
+    width: 300px;
+    height: 300px;
+    float: left;
+}
+
+.recipyText
+{
+    width: 400px;
+    height: 300px;
+    float: left;
+}
+
+.recipyText > p
+{
+    color: #e2e2e2;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;  
+    padding-right: 10px;
+    padding-left: 20px;
+    
+}
+
+
+.recipyText > h1
+{
+    text-align: center;
+}
 

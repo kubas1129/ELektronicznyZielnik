@@ -194,7 +194,7 @@ if(isset($_POST['email']))
                 }
                 else
                 {
-                    echo "<p>User: Guest;</p>";
+                    echo "<p>User: Guest</p>";
                 }
             
             ?>        
@@ -324,6 +324,30 @@ if(isset($_POST['email']))
         </main>
             
     </div>
+    
+    <?php
+    
+        if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+        {
+            if(isset($_SESSION['sql_adminright']) && $_SESSION['sql_adminright']==true)
+            {
+                echo '<label class="fixedbuttonAdd">
+                    <a href="zielnikdodaj.php"><div title="Dodaj recepturę" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
+                    </label>
+
+                    <label class="fixedbuttonLogout">
+                    <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                    </label>';
+            }
+            else
+            {
+                echo '<label class="fixedbuttonLogout">
+                <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                </label>';
+            }
+        }
+    
+    ?>
     
     <footer>
         

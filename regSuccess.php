@@ -27,6 +27,7 @@ else
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="css/main.css"/>
     
+    
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
 
@@ -81,7 +82,7 @@ else
                         Dziękujemy za rejestrację w serwisie! 
                         Możesz już zalogować się na swoje konto.
                         <br />
-                        <a class="regbutton" href="zielniklogowanie.php">Zaloguj się na konto!</a>
+                        <a class="registButton" href="zielniklogowanie.php">Zaloguj się na konto!</a>
                         
                     </div>
                     
