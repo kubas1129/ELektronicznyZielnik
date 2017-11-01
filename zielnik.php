@@ -27,6 +27,7 @@ elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==false))
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="css\main.css"/>
+    <link rel="stylesheet" href="css/fontello.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
@@ -85,14 +86,54 @@ elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==false))
                             <h1>Zielnik</h1><br /> 
                         </header>
                         
-                        To jest zielnik ... strona w budowie
-                        <br />
-                        <br />
+                        <?php
+
+                        require_once "mysqlconnect.php";
+
+                        mysqli_report(MYSQLI_REPORT_STRICT);
+
+                        try
+                        {
+                            $polaczenie = @new mysqli($host,$db_user,$db_password,$db_name); 
+
+                            if($polaczenie->connect_errno!=0)
+                            {
+                                throw new Exception(mysqli_connect_errno());
+                            }
+                            else
+                            {
+                                $result = $polaczenie->query(sprintf("SELECT * FROM receptury", mysqli_real_escape_string($polaczenie,$_SESSION['sql_login'])));
+
+                                $resultFound = $result->num_rows;
+
+                                
+                                while($row = $result->fetch_assoc())
+                                {
+                                    echo '<div class="recipy">
+                                        <img class="recipyImage" src="img/'.$row['image'].'.jpg"/>
+                                        <div class="recipyText">
+                                        <h1>'.$row['name'].'</h1>
+                                        <p>'.$row['description'].'</p>
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                        </div>';
+                                }
+                                
+                                unset($_SESSION['blad']);
+                                $result->close();
+                                
+
+                            }   
+
+                            $polaczenie->close();
+                        }
+                        catch(Exception $e)
+                        {
+                            echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności.</span>';
+                        }
+
+                        ?>
                         
-                        <a class="logbutton" href="logout.php">Wyloguj się</a>
-                        
-                        <br />
-                        <br />
                         
                     </div>
                     
@@ -124,6 +165,30 @@ elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==false))
         </main>
             
     </div>
+    
+    <?php
+    
+        if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+        {
+            if(isset($_SESSION['sql_adminright']) && $_SESSION['sql_adminright']==true)
+            {
+                echo '<label class="fixedbuttonAdd">
+                    <a href="zielnikdodaj.php"><div title="Dodaj recepturę" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
+                    </label>
+
+                    <label class="fixedbuttonLogout">
+                    <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                    </label>';
+            }
+            else
+            {
+                echo '<label class="fixedbuttonLogout">
+                <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                </label>';
+            }
+        }
+    
+    ?>
     
     <footer>
         

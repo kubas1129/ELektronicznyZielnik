@@ -17,6 +17,7 @@ session_start();
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="css\main.css"/>
+    <link rel="stylesheet" href="css/fontello.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
@@ -104,6 +105,29 @@ session_start();
         </main>
             
     </div>
+    
+    <?php
+    
+        if(isset($_SESSION['zalogowany']) && $_SESSION['zalogowany']==true)
+        {
+            if(isset($_SESSION['sql_adminright']) && $_SESSION['sql_adminright']==true)
+            {
+                echo '<label class="fixedbuttonAdd">
+                    <a href="zielnikdodaj.php"><div title="Dodaj recepturę" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
+                    </label>
+                    <label class="fixedbuttonLogout">
+                    <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                    </label>';
+            }
+            else
+            {
+                echo '<label class="fixedbuttonLogout">
+                <a href="logout.php"><div title="Wyloguj się" class="the-icons span3"><i class="demo-icon icon-link-ext-alt"></i></div></a>  
+                </label>';
+            }
+        }
+    
+    ?>
     
     <footer>
         

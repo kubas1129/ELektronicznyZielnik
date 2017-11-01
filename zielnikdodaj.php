@@ -2,12 +2,92 @@
 
 session_start();
 
-if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
-{
-    header('Location: zielnik.php');
-    exit();
-}
 
+//sprawdzamy czy cokolwiek sie przesłało
+if(isset($_POST['name']))
+{
+     
+    $validateOK = true;
+    
+    //walidacja loginu
+    $name = $_POST['name'];
+    
+    if(strlen($name) == 0)
+    {
+        $validateOK = false;
+        $_SESSION['e_name'] ="Nazwa receptury jest pusta!";
+    }
+    
+    
+    $description=$_POST['description'];
+    
+    if(strlen($description) == 0)
+    {
+        $validateOK = false;
+        $_SESSION['e_desc'] ="Opis jest pusty!";
+    }
+    
+    
+    $image = $_POST['image'];
+    
+     if(strlen($image) == 0)
+    {
+        $validateOK = false;
+        $_SESSION['e_img'] ="Adres zdjęcia jest pusty!";
+    }
+    
+    
+        
+    //Połączenie
+    require_once "mysqlconnect.php";
+    
+    mysqli_report(MYSQLI_REPORT_STRICT);
+    
+    try
+    {
+        $polaczenie = new mysqli($host,$db_user,$db_password,$db_name);
+        
+        if($polaczenie->connect_errno!=0)
+        {
+            throw new Exception(mysqli_connect_errno());
+        }
+        else
+        {
+            //sprawdzenie czy receptura o podanej nazwie nie istnieje
+            $result = $polaczenie->query("SELECT id FROM receptury WHERE name='$name'");
+            
+            if(!$result) throw new Exception($polaczenie->error);
+            
+            $resultsFound = $result->num_rows;
+            
+            if($resultsFound > 0)
+            {
+                $validateOK=false;
+                $_SESSION['e_name']="Receptura o podanej nazwie istnieje już w bazie!";
+            }
+            
+                        
+            //Jeśli wszystko poszło OK
+            if($validateOK==true)
+            {
+                if($polaczenie->query("INSERT INTO receptury VALUES (NULL,'$name','$description','$image')"))
+                {
+                    header('Location: zielnik.php');
+                }
+                else
+                {
+                    throw new Exception($polaczenie->error);
+                }
+            }
+            
+            $polaczenie->close();
+        }        
+    }
+    catch(Exception $e)
+    {
+        echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności.</span>';
+    }    
+}
 
 ?>
 
@@ -22,7 +102,7 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
     <meta name="keywords" content="zielnik, zdrowie, fit, przyrządzanie"/>
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="css\main.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
     <link rel="stylesheet" href="css/fontello.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
@@ -64,7 +144,7 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
         
         </div>
         
-        <div style="clear: both;"></div>
+        <div style="clear: both"></div>
             
     </header>
     
@@ -79,32 +159,58 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
                     <div class="leftside">
                         
                         <header>
-                            <h1>Logowanie w Elektronicznym zielniku</h1><br /> 
+                            <h1>Dodawanie receptury</h1><br /> 
                         </header>
                         
                         <div class="logowanie">
                         
-                            <form action="zaloguj.php" method="post">
+                            <form method="post" >
                                 
-                                Login:<br />
-                                <input type="text" name="login"/><br />
-                                Hasło:<br />
-                                <input type="password" name="haslo"/><br />
-                                <input class="registButton" style="margin-top: 10px;" type="submit" value="Zaloguj się"/>
-                            </form> 
-                            
-                            <br />
-                            <a class="logbutton" href="zielnikrejestracja.php">Zarejestruj się</a><br />
-                            
-                            
-                            <?php
-    
-                                if(isset($_SESSION['blad']))
+                                Nazwa:<br />
+                                <input type="text" name="name"/><br />
+                                
+                                <?php
+                                
+                                if(isset($_SESSION['e_name']))
                                 {
-                                    echo $_SESSION['blad'];
-                                    unset($_SESSION['blad']);
+                                    echo'<div class="error">'.$_SESSION['e_name'].'</div>';
+                                    unset($_SESSION['e_name']);
                                 }
-                            ?>
+                                
+                                ?>
+                                
+                    
+                                Opis:<br />
+                                <textarea rows="20" cols="60" name="description">                   
+                                </textarea><br />
+                                
+                                <?php
+                                
+                                if(isset($_SESSION['e_description']))
+                                {
+                                    echo'<div class="error">'.$_SESSION['e_description'].'</div>';
+                                    unset($_SESSION['e_description']);
+                                }
+                                
+                                ?>
+                                
+                                Miniaturka:<br />
+                                <input type="text" name="image"/><br />
+                                
+                                <?php
+                                
+                                if(isset($_SESSION['e_image']))
+                                {
+                                    echo'<div class="error">'.$_SESSION['e_image'].'</div>';
+                                    unset($_SESSION['e_image']);
+                                }
+                                
+                                ?>
+                      
+                               
+                                <input class="registButton" type="submit" value="Dodaj"/>
+                            
+                            </form>                     
                         
                         </div>
                         
@@ -170,8 +276,6 @@ if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
         </div>
         
     </footer>
-    
-    
     
 </body>
     
