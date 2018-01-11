@@ -2,8 +2,26 @@
 
 session_start();
 
-?>
+if(!isset($_SESSION['zalogowany']) && ($_SESSION['zalogowany'])==false)
+{
+    header('Location: zielnikrejestracja.php');
+    exit();
+}
+elseif((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==false))
+{
+    header('Location: zielniklogowanie.php');
+    exit();
+}
 
+
+if(isset($_GET['idv']))
+{
+    $_SESSION['idDetail'] = $_GET['idv'];
+    header('Location: zielnikDetail.php');
+}
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -16,7 +34,6 @@ session_start();
     <meta name="keywords" content="zielnik, zdrowie, fit, przyrządzanie"/>
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-    
     <script>
             if(document.getElementById('pagestyle'))
             {
@@ -30,11 +47,12 @@ session_start();
             link.href = localStorage['pageStyle'] || 'css/main.css';
             head.appendChild(link);
     </script>
-    
     <link rel="stylesheet" href="css/fontello.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
+    
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     
     <script>
         function switchToLight()
@@ -61,11 +79,13 @@ session_start();
             return link;
         }
     </script>
+    
+    
 
 </head>
 
 <body>
-        
+    
     <header id="top">
     
         <img src="img/ziola.jpg"/> 
@@ -100,7 +120,7 @@ session_start();
         <div style="clear: both;"></div>
             
     </header>
-        
+    
     <div class="container">
         
         <main>
@@ -112,19 +132,72 @@ session_start();
                     <div class="leftside">
                         
                         <header>
-                        <h1>Witaj w elektronicznym zielniku!</h1>
-                            <p>Zawitałeś tutaj przez przypadek? <br /> A może szukasz zapomnianych receptur zielarskich? Dobrze trafiłeś! <br /></p>
+                            <h1>Receptury</h1><br /> 
                         </header>
                         
-                        <div class="opis">
+                        <?php
+
+                        require_once "mysqlconnect.php";
+
+                        mysqli_report(MYSQLI_REPORT_STRICT);
+
+                        try
+                        {
+                            $polaczenie = @new mysqli($host,$db_user,$db_password,$db_name); 
+
+                            if($polaczenie->connect_errno!=0)
+                            {
+                                throw new Exception(mysqli_connect_errno());
+                            }
+                            else
+                            {
+                                $result = $polaczenie->query(sprintf("SELECT * FROM przepisy", mysqli_real_escape_string($polaczenie,$_SESSION['sql_login'])));
+
+                                $resultFound = $result->num_rows;
+
+                                $idname='one';
                             
-                            <img src="img/lecznicze1.jpg"/>
-                           
-                        <br />
-                        <p>Staram się dodawać sprawdzone i najlepsze receptury wprost od himalajskich mnichów u których szkoliłem swoje umięjętności przez dwa lata. Te wyspecjalizowane przepisy zawierają wiele rzadkich i niekiedy niedostępnych gatunków ziół, ale nie zrażaj się! Każdą z tych roślin udało mi się wychodować w ogródku. To naprawdę niesamowite, jak wiele możemy w tej materii zrobić sami. A więc do dzieła, zarejestruj się i przejdź do zakładki "Zielnik" aby rozpocząć swoją przygodę z niesamowitymi eliksirami prosto z twojego ogródka.</p>
+                                                        
+                                while($row = $result->fetch_assoc())
+                                {
+                            
+                                                                    
+                                    echo '<div class="recipy" id="'.$idname.'">
+                                        <img class="recipyImage" src="img/'.$row['image'].'" />
+                                        <div class="recipyText">
+                                        <h1>'.$row['name'].'</h1>
+                                        <p>'.$row['recipe'].'</p>
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                        </div>';
+                                    switch($idname)
+                                    {
+                                        case 'one': $idname='two'; break;
+                                        case 'two': $idname='three';break;
+                                        case 'three': $idname='four';break;
+                                        case 'four': $idname='none';break;
+                                        default: $idname='none';break;
+                                    }
+                                                    
+                                }
+                                
+                                unset($_SESSION['blad']);
+                                $result->close();
+                                
+
+                            }   
+
+                            $polaczenie->close();
+                        }
+                        catch(Exception $e)
+                        {
+                            echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności.</span>';
+                        }
+
+                        ?>
                         
-                        </div>
                         
+                    
                     </div>
                     
                     <div class="rightside">
@@ -133,7 +206,6 @@ session_start();
                         
                             <h5>Ostatnio dodane:</h5>
                             <ol class="entrylist">
-                                
                                 <?php
                                 
                                     if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
@@ -158,14 +230,25 @@ session_start();
 
 
                                                 $x = 0;
+                                                $id='#one';
 
                                                 while($row = $result->fetch_assoc())
                                                 {
 
-                                                    if($x >= $result->num_rows-4) echo '<li><a href="zielnik.php">'.$row['name'].'</a></li>';
+                                                    if($x >= $result->num_rows-4) echo '<li><a href="'.$id.'">'.$row['name'].'</a></li>';
 
                                                     $x++;
+                                                    
+                                                    switch($id)
+                                                    {
+                                                        case '#one': $id='#two'; break;
+                                                        case '#two': $id='#three';break;
+                                                        case '#three': $id='#four';break;
+                                                        case '#four': $id='#';break;
+                                                        default: $id='#';break;
+                                                    }
                                                 }
+                                                
 
                                                 unset($_SESSION['blad']);
                                                 $result->close();
@@ -180,16 +263,17 @@ session_start();
                                     }
                                     else
                                     {
-                                        echo '<h5 style="font-size: 12px;">Aby zobaczyć <a href="zielniklogowanie.php" style="text-decoration: none; color: #3e3e3e;">zaloguj</a> się!</h5>';
-                                    } 
+                                        //echo '<li><p>Aby zobaczyć ostatnio dodane musisz być zalogowany!</p></li>';
+                                    }
                                                      
                                 ?>
-                                
                             </ol>
                             
                         </div>
                         
-                        <div class="ad">       
+                        <div class="ad">
+                        
+                            
                             
                         </div>
                         
@@ -236,12 +320,6 @@ session_start();
                 </label>';
             }
         }
-        else
-        {
-            echo '<label class="fixedbuttonLogin">
-                    <a href="zielniklogowanie.php"><div title="Zaloguj się" class="the-icons span3"><i class="demo-icon icon-lock-open-alt"></i></div></a>
-                    </label>';
-        }
     
     ?>
     
@@ -251,11 +329,6 @@ session_start();
             Wszelkie prawa zastrzeżone &copy; Dziękuję za wizytę.
         </div>
         
-        <div class="userbuttons">
-        
-        </div>
-        
-                    
     </footer>
     
 </body>

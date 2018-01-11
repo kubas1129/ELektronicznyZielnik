@@ -234,23 +234,6 @@ h5
     padding: 2px;
 }
 
-.fixedbuttonRec
-{
-    width: 64px;
-	height: 64px;
-	text-decoration: none;
-	position: fixed;
-	right: 210px;
-	bottom: 50px;
-	display: block;
-}
-
-.fixedbuttonRec > a
-{
-    text-decoration: none;
-    color: skyblue;
-}
-
 .fixedbuttonAdd
 {
    	width: 64px;
@@ -304,25 +287,46 @@ h5
     color: white;
 }
 
+.fixedbuttonRec
+{
+    width: 64px;
+	height: 64px;
+	text-decoration: none;
+	position: fixed;
+	right: 210px;
+	bottom: 50px;
+	display: block;
+}
+
+.fixedbuttonRec > a
+{
+    text-decoration: none;
+    color: skyblue;
+}
+
 .recipy
 {
     width: 718px;
-    height: 300px;
+    height: auto;
     border: 1px solid #a1b3a1;
     background-color: #2F3336;
-    margin-bottom: 20px;    
+    margin-bottom: 40px; 
+    margin-top: 40px;
 }
 
 .recipyImage
 {
-    width: 300px;
-    height: 300px;
+    width: 290px;
+    height: 290px;
     float: left;
+    margin-left: 20px;  
+    border-style: solid;
+    border-radius: 5px;
 }
 
 .recipyText
 {
-    width: 400px;
+    width: 380px;
     height: 300px;
     float: left;
 }
@@ -336,15 +340,21 @@ h5
     font-family: 'Open Sans', sans-serif;  
     padding-right: 10px;
     padding-left: 20px;
+    margin-top: 0px;
     
 }
 
 
-.recipyText > h1
+.recipyTextH
 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-top: 10px;
+}
+
+.recipeTextP
+{
+    margin-left: 20px;
 }
 
 .detailButton
@@ -361,22 +371,3 @@ h5
     color: #e2e2e2;
 }
 
-
-#styleSwitcher
-{
-    color: antiquewhite;
-}
-
-#styleSwitcher > button
-{
-    background-color: rgb(100, 168, 103);
-    border: none;
-    color: white;
-    padding: 5px 12px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 4px 2px;
-    cursor: pointer;
-}

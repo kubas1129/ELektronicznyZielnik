@@ -1,6 +1,8 @@
 
 .icon-plus-circled:before { content: '\e800'; } /* '' */
 .icon-minus-circled:before { content: '\e801'; } /* '' */
+.icon-lock-open-alt:before { content: '\e802'; } /* '' */
+.icon-lock:before { content: '\e803'; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */
 .icon-link-ext-alt:before { content: '\f14c'; } /* '' */
 .icon-youtube-squared:before { content: '\f166'; } /* '' */

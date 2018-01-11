@@ -27,13 +27,19 @@ if(isset($_POST['name']))
         $_SESSION['e_desc'] ="Opis jest pusty!";
     }
     
+    $recipe=$_POST['recipe'];
     
-    $image = $_POST['image'];
-    
-     if(strlen($image) == 0)
+    if(strlen($recipe) == 0)
     {
         $validateOK = false;
-        $_SESSION['e_img'] ="Adres zdjęcia jest pusty!";
+        $_SESSION['e_recipe'] ="Przepis jest pusty!";
+    }
+    
+    
+    if(!($_FILES['userfile']['error']==UPLOAD_ERR_OK))
+    {
+        $validateOK = false;
+        $_SESSION['e_file']="Nieudana próba przesłania zdjęcia!";
     }
     
     
@@ -70,7 +76,10 @@ if(isset($_POST['name']))
             //Jeśli wszystko poszło OK
             if($validateOK==true)
             {
-                if($polaczenie->query("INSERT INTO receptury VALUES (NULL,'$name','$description','$image')"))
+                
+                $img=addslashes(file_get_contents($_FILES['userfile']['tmp_name']));
+                
+                if($polaczenie->query("INSERT INTO receptury VALUES (NULL,'$name','$description','{$_FILES['userfile']['name']}','$recipe')"))
                 {
                     header('Location: zielnik.php');
                 }
@@ -102,13 +111,51 @@ if(isset($_POST['name']))
     <meta name="keywords" content="zielnik, zdrowie, fit, przyrządzanie"/>
     <meta name="author" content="Jakub Pałka"/>
     <meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" href="css/main.css"/>
+    <script>
+            if(document.getElementById('pagestyle'))
+            {
+                delete document.getElementById('pagestyle'); //Usuwamy gdy juz jest żeby nie było duplikacji        
+            }
+            var head = document.getElementsByTagName('head')[0],
+            link = document.createElement('link');
+            link.id = 'pagestyle';
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = localStorage['pageStyle'] || 'css/main.css';
+            head.appendChild(link);
+    </script>
     <link rel="stylesheet" href="css/fontello.css"/>
     
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Lobster|Ubuntu:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&amp;subset=latin-ext" rel="stylesheet">
     
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    
+    <script>
+        function switchToLight()
+        {
+            localStorage['pageStyle'] = 'css/mainlight.css';
+            var head = document.getElementsByTagName('head')[0],
+            link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = localStorage['pageStyle'] || 'css/main.css';
+            head.appendChild(link);
+            return link;
+        }
+        
+         function switchToDark()
+        {
+            localStorage['pageStyle'] = 'css/main.css';
+            var head = document.getElementsByTagName('head')[0],
+            link = document.createElement('link');
+            link.type = 'text/css';
+            link.rel = 'stylesheet';
+            link.href = localStorage['pageStyle'] || 'css/main.css';
+            head.appendChild(link);
+            return link;
+        }
+    </script>
 
 </head>
 
@@ -121,7 +168,8 @@ if(isset($_POST['name']))
         <nav class="nav">
             <ul class="menu">
                 <li><a href="index.php">Strona główna</a></li>
-                <li><a href="zielniklogowanie.php">Zielnik</a></li>
+                <li><a href="zielnik.php">Zielnik</a></li>
+                <li><a href="przepisy.php">Receptury</a></li>
                 <li><a href="omnie.php">O mnie</a></li>
                 <li><a href="kontakt.php">Kontakt</a></li>                
             </ul>        
@@ -159,12 +207,13 @@ if(isset($_POST['name']))
                     <div class="leftside">
                         
                         <header>
-                            <h1>Dodawanie receptury</h1><br /> 
+                            <h1>Dodawanie rośliny</h1><br /> 
                         </header>
                         
                         <div class="logowanie">
                         
-                            <form method="post" >
+                            <form enctype="multipart/form-data" action=
+                                "<?php echo $_SERVER['PHP_SELF']; ?>" method="post" >
                                 
                                 Nazwa:<br />
                                 <input type="text" name="name"/><br />
@@ -194,21 +243,38 @@ if(isset($_POST['name']))
                                 
                                 ?>
                                 
-                                Miniaturka:<br />
-                                <input type="text" name="image"/><br />
+                                Szczegółowy opis:<br />
+                                <textarea rows="20" cols="60" name="recipe">                   
+                                </textarea><br />
                                 
                                 <?php
                                 
-                                if(isset($_SESSION['e_image']))
+                                if(isset($_SESSION['e_recipe']))
                                 {
-                                    echo'<div class="error">'.$_SESSION['e_image'].'</div>';
-                                    unset($_SESSION['e_image']);
+                                    echo'<div class="error">'.$_SESSION['e_recipe'].'</div>';
+                                    unset($_SESSION['e_recipe']);
                                 }
                                 
                                 ?>
+                                            
+                                
+                                Zdjęcie:<br />
+                                <input name="userfile" type="file"/>
+                                
+                                <?php
+                                
+                                if(isset($_SESSION['e_file']))
+                                {
+                                    echo'<div class="error">'.$_SESSION['e_file'].'</div>';
+                                    unset($_SESSION['e_file']);
+                                }
+                                                            
+                                ?>
+                                                        
                       
-                               
                                 <input class="registButton" type="submit" value="Dodaj"/>
+                                
+                                
                             
                             </form>                     
                         
@@ -222,7 +288,54 @@ if(isset($_POST['name']))
                         
                             <h5>Ostatnio dodane:</h5>
                             <ol class="entrylist">
-                                <li><a href="#">Eliksir życia</a></li>
+                                
+                                <?php
+                                
+                                    if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
+                                    {
+                                        require_once "mysqlconnect.php";
+                                        
+                                        mysqli_report(MYSQLI_REPORT_STRICT);
+
+                                        try
+                                        {
+                                            $polaczenie = @new mysqli($host,$db_user,$db_password,$db_name); 
+
+                                            if($polaczenie->connect_errno!=0)
+                                            {
+                                                throw new Exception(mysqli_connect_errno());
+                                            }
+                                            else
+                                            {
+                                                $result = $polaczenie->query(sprintf("SELECT * FROM receptury", mysqli_real_escape_string($polaczenie,$_SESSION['sql_login'])));
+
+                                                $resultFound = $result->num_rows;
+
+
+                                                $x = 0;
+
+                                                while($row = $result->fetch_assoc())
+                                                {
+
+                                                    if($x >= $result->num_rows-4) echo '<li><a href="#">'.$row['name'].'</a></li>';
+
+                                                    $x++;
+                                                }
+
+                                                unset($_SESSION['blad']);
+                                                $result->close();
+                                            }   
+
+                                            $polaczenie->close();
+                                        }
+                                        catch(Exception $e)
+                                        {
+                                            echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności.</span>';
+                                        }
+                                    }               
+                                                     
+                                ?>
+                                                                
                             </ol>
                             
                         </div>
@@ -231,6 +344,12 @@ if(isset($_POST['name']))
                         
                             
                             
+                        </div>
+                        
+                        <div id="styleSwitcher">
+                            <br />
+                            <button onclick="switchToLight()">Light</button>
+                            <button onclick="switchToDark()">Dark</button>
                         </div>
                         
                     </div>
@@ -252,7 +371,11 @@ if(isset($_POST['name']))
             if(isset($_SESSION['sql_adminright']) && $_SESSION['sql_adminright']==true)
             {
                 echo '<label class="fixedbuttonAdd">
-                    <a href="zielnikdodaj.php"><div title="Dodaj recepturę" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
+                    <a href="zielnikdodaj.php"><div title="Dodaj roślinę" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
+                    </label>
+                    
+                    <label class="fixedbuttonRec">
+                    <a href="przepisdodaj.php"><div title="Dodaj przepis" class="the-icons span3"><i class="demo-icon icon-plus-circled"></i></div></a>
                     </label>
 
                     <label class="fixedbuttonLogout">
