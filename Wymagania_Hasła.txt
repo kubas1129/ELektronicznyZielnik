@@ -1,0 +1,10 @@
+Hasło do strony jako admin:
+Login: admin123
+Hasło: admin123
+
+Wymagane wersje oprogramowania:
+- Apache/2.4.28 (Win32) OpenSSL/1.0.2l PHP/7.1.10
+- Wersja klienta bazy danych: libmysql - mysqlnd 5.0.12
+- Wersja serwera: 10.1.28-MariaDB
+- Wersja PHP: 7.1.10
+- HTML 5

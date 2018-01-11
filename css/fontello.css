@@ -57,6 +57,8 @@
  
 .icon-plus-circled:before { content: '\e800'; font-size: 64px; margin-top: 32px; margin-left: 32px; } /* '' */
 .icon-minus-circled:before { content: '\e801'; } /* '' */
+.icon-lock-open-alt:before { content: '\e802'; font-size: 64px; margin-top: 32px; margin-left: 32px; } /* '' */
+.icon-lock:before { content: '\e803'; font-size: 64px; margin-top: 32px; margin-left: 32px; } /* '' */
 .icon-gplus-squared:before { content: '\f0d4'; } /* '' */
 .icon-link-ext-alt:before { content: '\f14c'; font-size: 64px; margin-top: 32px; margin-left: 32px; } /* '' */
 .icon-youtube-squared:before { content: '\f166'; } /* '' */

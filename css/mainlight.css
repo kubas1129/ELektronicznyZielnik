@@ -7,8 +7,8 @@ font-family: 'Open Sans', sans-serif;
 
 body
 {
-    background-color: #2F3336;
-    color: #efefef;
+    background-color:#486043;
+    color: #3e3e3e;
     font-family: 'Ubuntu', sans-serif;
     font-size: 20px;
 }
@@ -24,7 +24,7 @@ body
 {
     width: 800px;
     float: left;
-    background-color: #464c46;
+    background-color: #88a37f;
 }
 
 .userinfo
@@ -40,7 +40,7 @@ body
 
 .userinfo > p
 {
-    color: #e2e2e2;
+    color: #b2c4b2;
     font-size: 15px;
     letter-spacing: 0.5px;
     text-align: center;
@@ -71,7 +71,7 @@ body
 {
     text-decoration: none;
     font-size: 26px;
-    color: #b2c4b2;
+    color: #3e3e3e;
     font-family: 'Lobster', cursive;
     font-weight: 400;
     letter-spacing: 1px;
@@ -79,7 +79,7 @@ body
 
 .menu > li > a:hover
 {
-    color: #a1b3a1;
+    color: #2d2d2d;
 }
 
 .container 
@@ -97,7 +97,7 @@ body
     min-height: 424px;
     margin-right: 5px;
     float: left;
-    background-color: #464c46;
+    background-color:#88a37f;
     padding-left: 40px;
     padding-right: 40px;
 }
@@ -107,7 +107,7 @@ body
     width: 170px;
     margin-left: 5px;
     float: left;
-    background-color: #464c46;
+    background-color: #88a37f;
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 10px;
@@ -116,14 +116,14 @@ body
 
 header > h1
 {
-    color: #b2c4b2;
+    color: #3e3e3e;
     font-size: 30px;
     text-align: center;
 }
 
 p
 {
-    color: #e2e2e2;
+    color: #3e3e3e;
     font-size: 18px;
     letter-spacing: 0.5px;
     text-align: left;
@@ -152,7 +152,7 @@ header > p
 .entrylist > li > a
 {
     text-decoration: none;
-    color: #e2e2e2;
+    color: #3e3e3e;
 }
 
 .entrylist > li > a:hover
@@ -163,7 +163,7 @@ header > p
 
 h5
 {
-    color: #b2c4b2;
+    color: #3e3e3e;
     font-size: 16px;
 }
 
@@ -172,7 +172,7 @@ h5
     width: 500px;
     margin-left: 110px;
     margin-right: 110px;
-    border: 2px solid #e2e2e2;
+    border: 2px solid #3e3e3e;
     border-radius: 2px;
 }
 
@@ -181,7 +181,7 @@ h5
     width: 990px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #2F3336;
+    background-color: #88a37f;
     margin-top: 5px;
     text-align: center;
     font-size: 18px;
@@ -204,6 +204,7 @@ h5
 {
     padding-left: 50px;
     padding-bottom: 50px;
+    color: #3e3e3e;
 }
 
 .registButton
@@ -221,16 +222,16 @@ h5
 .logbutton
 {
     text-decoration: none;
-    color: #b2c4b2;
-    border: 1px solid #b2c4b2;
+    color: #3e3e3e;
+    border: 1px solid #3e3e3e;
     padding: 2px;
 }
 
 .logbutton:hover
 {
     text-decoration: none;
-    color: #a1b3a1;
-    border: 1px solid #a1b3a1;
+    color: #3e3e3e;
+    border: 1px solid #3e3e3e;
     padding: 2px;
 }
 
@@ -369,7 +370,7 @@ h5
 
 #styleSwitcher > button
 {
-    background-color: rgb(100, 168, 103);
+    background-color: #2F3336;
     border: none;
     color: white;
     padding: 5px 12px;
